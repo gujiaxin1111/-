@@ -1,0 +1,114 @@
+
+
+// 滚动监听模块
+
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+// 监听页面滚动事件
+window.addEventListener('scroll', () => {
+  // 当滚动距离超过100px时显示返回顶部按钮
+  if (window.scrollY > 100) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+
+// 返回顶部按钮点击事件（平滑滚动）
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 平滑滚动效果
+  });
+});
+
+
+// 主题切换模块
+
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// 初始化主题（优先读取本地存储，默认浅色）
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeToggle.textContent = '🌞'; // 切换为白天图标
+  } else {
+    body.classList.remove('dark-mode');
+    themeToggle.textContent = '🌓'; // 切换为夜晚图标
+  }
+}
+
+// 主题切换点击事件
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode'); // 切换主题类
+  const isDarkMode = body.classList.contains('dark-mode');
+
+  // 存储主题状态到本地存储
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
+  // 更新图标显示
+  themeToggle.textContent = isDarkMode ? '🌞' : '🌓';
+});
+
+
+// 轮播图
+var mySwiper = new Swiper('.swiper', {
+  direction: 'horizontal',
+  loop: true,
+  autoplay: false,
+  effect: 'fade',
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+
+// 卡片鼠标移入/移出动画（已有CSS过渡，JS可增强交互反馈）
+const projectCards = document.querySelectorAll('.project-card');
+
+projectCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    // 放大卡片（配合CSS的transform）
+    card.style.transform = 'scale(1.03)';
+    // 动态修改阴影颜色为主色
+    card.style.boxShadow = `0 8px 20px rgba(${getRGBValue('--primary-color')}, 0.2)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'scale(1)';
+    card.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.1)';
+  });
+});
+
+// 辅助函数支持带Alpha的16进制色（如#FF0000AA）
+function getRGBValue(variable) {
+  const computedStyle = getComputedStyle(document.documentElement);
+  const hexColor = computedStyle.getPropertyValue(variable).trim();
+
+  // 处理带Alpha通道的16进制色
+  const is8Char = hexColor.length === 9; // #RRGGBBAA
+  const r = parseInt(hexColor.slice(1, 3), 16);
+  const g = parseInt(hexColor.slice(3, 5), 16);
+  const b = parseInt(hexColor.slice(5, 7), is8Char ? 7 : 9, 16);
+
+  return `${r}, ${g}, ${b}`;
+}
+
+// 新增：预计算主色RGB并绑定到元素属性（避免重复计算）
+const primaryColorRGB = getRGBValue('--primary-color');
+document.documentElement.style.setProperty('--primary-color-rgb', primaryColorRGB);
+
+// 初始化进度条
+const progressBars = document.querySelectorAll('.progress-bar');
+
+progressBars.forEach(bar => {
+  const percent = bar.dataset.percent; // 获取data-percent值
+  bar.style.setProperty('--progress-width', `${percent}%`); // 绑定CSS变量
+});
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/lkj.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+  <style>
+    .swiper {
+      width: 600px;
+      height: 300px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f1f1f1;
+
+    }
+
+    .swiper-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 深色/浅色模式切换按钮 -->
+  <button id="themeToggle" class="theme-toggle-btn">🌓</button>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="#about">个人简介</a></li>
+      <li><a href="#projects">项目经验</a></li>
+      <li><a href="#skills">专业技能</a></li>
+      <li><a href="#education">教育背景</a></li>
+      <li><a href="#contact">联系方式</a></li>
+    </ul>
+  </nav>
+  <!-- 首页/个人介绍 -->
+
+  <section id="about" class="section">
+    <div class="about-container">
+      <!-- 左侧图片 -->
+      <div class="hero-image">
+        <img src="./img/用户1.jpg" alt="个人形象照">
+      </div>
+
+      <!-- 右侧文字内容 -->
+      <div class="hero-content">
+        <div class="hero">
+          <h1 class="fade-in">顾嘉鑫</h1>
+          <p class="description fade-in delay-2">介绍：前端开发工程师，专注于Web开发，擅长打造高性能、用户友好的前端应用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 轮播图 -->
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="./img/1.jpg" alt="图片1"></div>
+      <div class="swiper-slide"><img src="./img/2.jpg" alt="图片2"></div>
+
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+  <!-- 项目经验/作品集 -->
+  <section id="projects" class="section">
+    <h2 class="section-title">项目经验</h2>
+    <div class="card-container">
+      <div class="project-card project-card-style">
+        <img src="./img/3.jpg" alt="项目图标" class="card-icon">
+        <div class="card-content">
+          <h3>在线商城项目</h3>
+          <p class="tech-stack">技术栈：React, Redux, Node.js</p>
+          <p class="function-desc">功能描述：实现商品展示、购物车、订单支付等功能。</p>
+        </div>
+      </div>
+      <div class="project-card project-card-style">
+        <img src="./img/4.jpg" alt="项目图标" class="card-icon">
+        <div class="card-content">
+          <h3>博客系统</h3>
+          <p class="tech-stack">技术栈：Vue.js, MySQL</p>
+          <p class="function-desc">功能描述：支持文章发布、评论、点赞等功能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- 专业技能 -->
+  <section id="skills" class="section">
+    <h2 class="section-title">专业技能</h2>
+    <div class="card-container">
+      <div class="skill-card skill-card-style">
+        <img src="./img/3.jpg" alt="HTML/CSS图标" class="skill-icon">
+        <div class="skill-content">
+          <h3>HTML/CSS</h3>
+          <div class="progress-container">
+            <div class="progress-bar" data-percent="90"></div>
+            <span class="progress-text">90%</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-card skill-card-style">
+        <img src="./img/4.jpg" alt="JavaScript图标" class="skill-icon">
+        <div class="skill-content">
+          <h3>JavaScript</h3>
+          <div class="progress-container">
+            <div class="progress-bar" data-percent="80"></div>
+            <span class="progress-text">80%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- 教育背景 -->
+  <section id="education" class="section">
+    <h2 class="section-title">教育背景</h2>
+    <div class="timeline">
+      <!-- 教育时间轴项目 -->
+      <div class="timeline-item left">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>三亚学院</h3>
+          <p>区块链工程专业</p>
+          <p>2023.09 - 2027.06</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>高中</h3>
+          <p>2020.09 - 2023.06</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact" class="section">
+    <h2 class="section-title">联系方式</h2>
+    <div class="contact-info">
+      <p><i class="fas fa-phone"></i> 手机号：15501911258</p>
+
+    </div>
+  </section>
+
+
+  <!-- 返回顶部按钮 -->
+  <button id="scrollTopBtn" class="scroll-top-btn">↑</button>
+
+  <script src="./js/mnb.js"></script>
+</body>
+
+</html>
