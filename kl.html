@@ -7,7 +7,54 @@
   <title>Document</title>
   <link rel="stylesheet" href="./css/lkj.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <style>
+    /* 动画层 */
+    .gta-animation {
+      position: fixed; /* 固定定位 */
+      top: 60px; /* 导航栏高度，需与实际导航栏高度一致 */
+      left: 0;
+      width: 100vw; /* 100%视口宽度 */
+      height: 100vh; /* 100%视口高度 */
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none; /* 动画层不阻挡交互 */
+    }
+
+    .gta-animation h1 {
+      margin: 0;
+      height: 100vh; /* 撑满整个动画层高度 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18vw;
+      background: url("./img/0e945762515fd7b89f1af9543f5f4e8d_720.png") no-repeat center/cover; /* 建议替换为GTA背景图 */
+      background-clip: text;
+      color: transparent;
+      animation: scale 8s infinite alternate;
+    }
+
+    @keyframes scale {
+      0% {
+        font-size: 12vw;
+        opacity: 1;
+      }
+      100% {
+        font-size: 22vw;
+        opacity: 0.4;
+      }
+    }
+
+    /* 首页内容容器 */
+    .main-content {
+      margin-top: calc(100vh + 60px); /* 预留动画层高度+导航栏高度 */
+      padding: 40px 20px;
+      background: var(--light-bg); /* 使用浅色背景区分 */
+    }
+
+
     .swiper {
       width: 600px;
       height: 300px;
@@ -31,6 +78,7 @@
 </head>
 
 <body>
+  <h1>Hello</h1>
   <!-- 深色/浅色模式切换按钮 -->
   <button id="themeToggle" class="theme-toggle-btn">🌓</button>
   <!-- 导航栏 -->
@@ -43,9 +91,17 @@
       <li><a href="#contact">联系方式</a></li>
     </ul>
   </nav>
-  <!-- 首页/个人介绍 -->
+<!-- GTA动画区域（新增） -->
+  <div class="gta-animation">
+    <h1>Hello</h1>
+  </div>
 
+  <!-- 首页/个人介绍 -->
+   <main class="main-content">
+    <section id="about" class="section">
+<div class="main-content"></div>
   <section id="about" class="section">
+    
     <div class="about-container">
       <!-- 左侧图片 -->
       <div class="hero-image">
@@ -73,6 +129,7 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </div>
+  
   <!-- 项目经验/作品集 -->
   <section id="projects" class="section">
     <h2 class="section-title">项目经验</h2>
@@ -151,7 +208,7 @@
     </div>
   </section>
 
-  <!-- 联系方式 -->
+ <!-- 联系方式 -->
   <section id="contact" class="section">
     <h2 class="section-title">联系方式</h2>
     <div class="contact-info">
@@ -160,10 +217,25 @@
     </div>
   </section>
 
+<!-- 聊天机器人按钮 -->
+<button id="chatbotToggle" class="chatbot-btn">🤖</button>
+
+<!-- 聊天窗口（固定在右下角） -->
+<div class="chatbot-popup" id="chatPopup">
+  <div class="chat-header">AI助手</div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="输入你的问题...">
+    <button id="sendBtn">发送</button>
+  </div>
+</div>
+
+
 
   <!-- 返回顶部按钮 -->
   <button id="scrollTopBtn" class="scroll-top-btn">↑</button>
 
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="./js/mnb.js"></script>
 </body>
 

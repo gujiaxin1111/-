@@ -54,20 +54,21 @@ themeToggle.addEventListener('click', () => {
 
 
 // 轮播图
-var mySwiper = new Swiper('.swiper', {
-  direction: 'horizontal',
-  loop: true,
-  autoplay: false,
-  effect: 'fade',
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-});
+ 
+        var mySwiper = new Swiper('.swiper',{
+            direction: 'horizontal',
+            loop: true,
+           
+            effect: 'fade',
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
 
 // 卡片鼠标移入/移出动画（已有CSS过渡，JS可增强交互反馈）
 const projectCards = document.querySelectorAll('.project-card');
@@ -112,3 +113,61 @@ progressBars.forEach(bar => {
   bar.style.setProperty('--progress-width', `${percent}%`); // 绑定CSS变量
 });
 
+
+const chatToggle = document.getElementById('chatbotToggle');
+const chatPopup = document.getElementById('chatPopup');
+const chatMessages = document.getElementById('chatMessages');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+
+// 切换窗口显示状态
+chatToggle.addEventListener('click', () => {
+  chatPopup.classList.toggle('show');
+});
+
+// 发送消息处理
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+async function sendMessage() {
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  // 显示用户消息
+  addMessage(message, 'user');
+  userInput.value = '';
+
+  // 调用OpenAI API
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'sk-214a4ede5bc44e90bb3ef713b66e2113', 
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: message }],
+        temperature: 0.8,
+      }),
+    });
+
+    const data = await response.json();
+    const aiMessage = data.choices[0].message.content;
+    addMessage(aiMessage, 'ai');
+  } catch (error) {
+    addMessage('抱歉，暂时无法获取回答，请稍后再试。', 'ai');
+    console.error('API调用错误:', error);
+  }
+}
+
+// 添加消息到聊天窗口
+function addMessage(content, role) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${role}`;
+  messageDiv.innerHTML = `<p>${content}</p>`;
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight; // 自动滚动到底部
+}
